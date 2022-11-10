@@ -25,7 +25,7 @@ export class PipelineStack extends Stack {
 
     // Github connection
     const sourceAction = new aws_codepipeline_actions.CodeStarConnectionsSourceAction({
-      actionName: "GitHub",
+      actionName: "Github_Source",
       owner: "JonathanGriffiths94",
       connectionArn: `arn:aws:codestar-connections:${this.region}:${this.account}:connection/${props.codeStarId}`,
       repo: "aws-ci-cd-lambda-docker-test",
