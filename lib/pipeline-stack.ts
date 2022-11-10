@@ -52,8 +52,13 @@ export class PipelineStack extends Stack {
     });
 
     role.attachInlinePolicy(
+<<<<<<< HEAD
       new aws_iam.Policy(this, "CodeBuildReadCloudFormation", {
         policyName: "CodeBuildReadCloudFormation",
+=======
+      new aws_iam.Policy(this, "CodeBuildReadCloudFormation", {
+        policyName: "CodeBuildReadCloudFormation",
+>>>>>>> main
         statements: [
           new aws_iam.PolicyStatement({
             actions: ["cloudformation:*"],
@@ -138,10 +143,17 @@ export class PipelineStack extends Stack {
     const sourceAction =
       new aws_codepipeline_actions.CodeStarConnectionsSourceAction({
         actionName: "GitHub",
+<<<<<<< HEAD
         owner: "JonathanGriffiths94",
         connectionArn: `arn:aws:codestar-connections:${this.region}:${this.account}:connection/${props.codeStarId}`,
         repo: "aws-ci-cd-lambda-docker-test",
         branch: "main",
+=======
+        owner: "JonathanGriffiths94",
+        connectionArn: `arn:aws:codestar-connections:${this.region}:${this.account}:connection/${props.codeStarId}`,
+        repo: "aws-ci-cd-lambda-docker-test",
+        branch: "main",
+>>>>>>> main
         output: sourceOutput,
       });
 
@@ -199,8 +211,13 @@ export class PipelineStack extends Stack {
       });
 
     // pipeline
-    const pipeline = new aws_codepipeline.Pipeline(this, "CicdPipelineDemo", {
-      pipelineName: "CicdPipelineDemo",
+<<<<<<< HEAD
+    const pipeline = new aws_codepipeline.Pipeline(this, "PipelineDemo", {
+      pipelineName: "PipelineDemo",
+=======
+    const pipeline = new aws_codepipeline.Pipeline(this, "PipelineDemo", {
+      pipelineName: "PipelineDemo",
+>>>>>>> main
       crossAccountKeys: false,
       stages: [
         {
