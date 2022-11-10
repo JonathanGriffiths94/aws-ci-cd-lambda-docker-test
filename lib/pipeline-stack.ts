@@ -8,7 +8,7 @@ import {
     aws_iam
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+
 
 interface PipelineProps extends StackProps {
   codeStarId: string;
@@ -29,6 +29,7 @@ export class PipelineStack extends Stack {
       owner: "JonathanGriffiths94",
       connectionArn: `arn:aws:codestar-connections:${this.region}:${this.account}:connection/${props.codeStarId}`,
       repo: "aws-ci-cd-lambda-docker-test",
+      branch: "main",
       output: sourceOutput
     });
 
@@ -209,6 +210,6 @@ export class PipelineStack extends Stack {
     });
 
     // Remove artifact bucket on stack delete
-      pipeline.artifactBucket.applyRemovalPolicy(RemovalPolicy.DESTROY)
+    pipeline.artifactBucket.applyRemovalPolicy(RemovalPolicy.DESTROY)
   }
 }
