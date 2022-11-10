@@ -74,6 +74,18 @@ export class PipelineStack extends Stack {
         })
     )
 
+    role.attachInlinePolicy(
+        new aws_iam.Policy(this, "CodeStarConnection", {
+          policyName: "CodeStarConnection",
+          statements: [
+              new aws_iam.PolicyStatement({
+                actions: ["codestar-connections:UseConnection"],
+                resources: [`arn:aws:codestar-connections:${this.region}:${this.account}:connection/${props.codeStarId}`]
+              })
+          ]
+        })
+    )
+
       // CodeBuild for integration test
     const integTestCodeBuildProject = new aws_codebuild.PipelineProject(
       this,
