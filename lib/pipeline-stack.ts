@@ -9,7 +9,6 @@ import {
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
-
 interface PipelineProps extends StackProps {
   codeStarId: string;
 }
@@ -32,6 +31,7 @@ export class PipelineStack extends Stack {
       branch: "main",
       output: sourceOutput
     });
+
 
     // CodeBuild for unit test
     const unitTestCodeBuildProject = new aws_codebuild.PipelineProject(
@@ -143,7 +143,7 @@ export class PipelineStack extends Stack {
     // Unit test CodeBuild action
     const unitTestBuildAction = new aws_codepipeline_actions.CodeBuildAction({
       actionName: "DoUnitTest",
-      project: unitTestCodeBuildProject,
+      project: unitTestCodeBuild,
       input: sourceOutput,
       outputs: [unitTestBuildOutput],
       environmentVariables: {
