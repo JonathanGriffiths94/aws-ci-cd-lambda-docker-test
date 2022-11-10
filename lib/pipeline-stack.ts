@@ -52,8 +52,8 @@ export class PipelineStack extends Stack {
     });
 
     role.attachInlinePolicy(
-      new aws_iam.Policy(this, "CodeBuildReadCloufFormation", {
-        policyName: "CodeBuildReadCloufFormation",
+      new aws_iam.Policy(this, "CodeBuildReadCloudFormation", {
+        policyName: "CodeBuildReadCloudFormation",
         statements: [
           new aws_iam.PolicyStatement({
             actions: ["cloudformation:*"],
