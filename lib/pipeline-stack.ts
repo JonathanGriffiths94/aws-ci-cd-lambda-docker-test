@@ -143,7 +143,7 @@ export class PipelineStack extends Stack {
     // Unit test CodeBuild action
     const unitTestBuildAction = new aws_codepipeline_actions.CodeBuildAction({
       actionName: "DoUnitTest",
-      project: unitTestCodeBuild,
+      project: unitTestCodeBuildProject,
       input: sourceOutput,
       outputs: [unitTestBuildOutput],
       environmentVariables: {
