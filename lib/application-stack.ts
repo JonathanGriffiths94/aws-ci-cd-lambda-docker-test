@@ -10,8 +10,6 @@ import { Construct } from 'constructs';
 import * as path from "path";
 import {PolicyStatement, ServicePrincipal} from "aws-cdk-lib/aws-iam";
 
-
-
 export interface ApplicationProps extends StackProps {
   environment: string;
 }
@@ -23,11 +21,11 @@ export class ApplicationStack extends Stack {
     super(scope, id, props);
 
     // Suffix
-    const suffix = Date.now().toString();
+    //const suffix = Date.now().toString();
 
     // Lambda fn
     const fn = new aws_lambda.DockerImageFunction(this, 'DockerImageFunctionHandler', {
-      code: aws_lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../src/hello_world'), {
+      code: aws_lambda.DockerImageCode.fromImageAsset(path.resolve(__dirname, './../src/hello_world'), {
       cmd: ["app.handler"],
       }),
       memorySize: 512,
