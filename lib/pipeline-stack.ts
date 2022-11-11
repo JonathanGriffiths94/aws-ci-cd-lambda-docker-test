@@ -3,7 +3,7 @@ import {
   aws_codepipeline,
   aws_codepipeline_actions,
   aws_iam,
-  RemovalPolicy,
+  RemovalPolicy, SecretValue,
   Stack,
   StackProps,
 } from "aws-cdk-lib";
@@ -52,13 +52,8 @@ export class PipelineStack extends Stack {
     });
 
     role.attachInlinePolicy(
-<<<<<<< HEAD
       new aws_iam.Policy(this, "CodeBuildReadCloudFormation", {
         policyName: "CodeBuildReadCloudFormation",
-=======
-      new aws_iam.Policy(this, "CodeBuildReadCloudFormation", {
-        policyName: "CodeBuildReadCloudFormation",
->>>>>>> main
         statements: [
           new aws_iam.PolicyStatement({
             actions: ["cloudformation:*"],
@@ -140,22 +135,24 @@ export class PipelineStack extends Stack {
     // });
 
     // github source
-    const sourceAction =
-      new aws_codepipeline_actions.CodeStarConnectionsSourceAction({
-        actionName: "GitHub",
-<<<<<<< HEAD
-        owner: "JonathanGriffiths94",
-        connectionArn: `arn:aws:codestar-connections:${this.region}:${this.account}:connection/${props.codeStarId}`,
-        repo: "aws-ci-cd-lambda-docker-test",
-        branch: "main",
-=======
-        owner: "JonathanGriffiths94",
-        connectionArn: `arn:aws:codestar-connections:${this.region}:${this.account}:connection/${props.codeStarId}`,
-        repo: "aws-ci-cd-lambda-docker-test",
-        branch: "main",
->>>>>>> main
-        output: sourceOutput,
-      });
+    // const sourceAction =
+    //  new aws_codepipeline_actions.CodeStarConnectionsSourceAction({
+    //    actionName: "GitHub_source",
+    //    owner: "JonathanGriffiths94",
+    //    connectionArn: `arn:aws:codestar-connections:${this.region}:${this.account}:connection/${props.codeStarId}`,
+    //    repo: "aws-ci-cd-lambda-docker-test",
+    //    branch: "main",
+    //    output: sourceOutput,
+    //  });
+
+
+    const sourceAction = new aws_codepipeline_actions.GitHubSourceAction({
+      actionName: 'Github_Source',
+      output: sourceOutput,
+      owner: 'JonathanGriffiths94',
+      repo: 'aws-ci-cd-lambda-docker-test',
+      oauthToken: SecretValue.secretsManager('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'),
+    });
 
     // build action
     const unittestBuildAction = new aws_codepipeline_actions.CodeBuildAction({
@@ -211,13 +208,8 @@ export class PipelineStack extends Stack {
       });
 
     // pipeline
-<<<<<<< HEAD
     const pipeline = new aws_codepipeline.Pipeline(this, "PipelineDemo", {
       pipelineName: "PipelineDemo",
-=======
-    const pipeline = new aws_codepipeline.Pipeline(this, "PipelineDemo", {
-      pipelineName: "PipelineDemo",
->>>>>>> main
       crossAccountKeys: false,
       stages: [
         {
