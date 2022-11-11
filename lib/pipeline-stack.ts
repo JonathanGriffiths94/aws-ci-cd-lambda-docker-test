@@ -79,7 +79,7 @@ export class PipelineStack extends Stack {
               commands: [
                 `SERVICE_URL=$(aws cloudformation describe-stacks --stack-name PreProdApplicationStack --query "Stacks[0].Outputs[?OutputKey=='UrlPreProd'].OutputValue" --output text)`,
                 "echo $SERVICE_URL",
-                "pip install -r src/hello_world/requirements.txt",
+                "pip install -r requirements.txt",
               ],
             },
             build: {
