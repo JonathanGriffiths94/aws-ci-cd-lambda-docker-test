@@ -137,7 +137,7 @@ export class PipelineStack extends Stack {
     // github source
     // const sourceAction =
     //  new aws_codepipeline_actions.CodeStarConnectionsSourceAction({
-    //    actionName: "GitHub_source",
+    //    actionName: "GitHub_Source",
     //    owner: "JonathanGriffiths94",
     //    connectionArn: `arn:aws:codestar-connections:${this.region}:${this.account}:connection/${props.codeStarId}`,
     //    repo: "aws-ci-cd-lambda-docker-test",
@@ -156,17 +156,30 @@ export class PipelineStack extends Stack {
     });
 
     // build action
-    const unittestBuildAction = new aws_codepipeline_actions.CodeBuildAction({
-      environmentVariables: {
-        CODE_COMMIT_ID: {
-          value: sourceAction.variables.commitId,
-        },
+    //const unittestBuildAction = new aws_codepipeline_actions.CodeBuildAction({
+    //  environmentVariables: {
+    //    CODE_COMMIT_ID: {
+    //      value: sourceAction.variables.commitId,
+    //    },
+    //  },
+    //  actionName: "DoUnitest",
+    //  project: unittestCodeBuild,
+    //  input: sourceOutput,
+    //  outputs: [unitestCodeBuildOutput],
+    //});
+
+
+  new aws_codepipeline_actions.CodeBuildAction({
+    actionName: 'DoUnitest',
+    project: unittestCodeBuild,
+    input: sourceOutput,
+    outputs: [unitestCodeBuildOutput],
+    environmentVariables: {
+      COMMIT_URL: {
+        value: sourceAction.variables.commitUrl,
       },
-      actionName: "DoUnitest",
-      project: unittestCodeBuild,
-      input: sourceOutput,
-      outputs: [unitestCodeBuildOutput],
-    });
+    },
+  });
 
     // cdk build template
     const cdkBuild = new aws_codepipeline_actions.CodeBuildAction({
