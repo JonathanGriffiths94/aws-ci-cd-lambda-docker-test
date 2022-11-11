@@ -27,7 +27,7 @@ export class ApplicationStack extends Stack {
 
     // Lambda fn
     const fn = new aws_lambda.DockerImageFunction(this, 'DockerImageFunctionHandler', {
-      code: aws_lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../src/hello_world'), {
+      code: aws_lambda.DockerImageCode.fromImageAsset(path.join(__dirname, 'src/hello_world'), {
       cmd: ["app.handler"],
       }),
       memorySize: 512,
