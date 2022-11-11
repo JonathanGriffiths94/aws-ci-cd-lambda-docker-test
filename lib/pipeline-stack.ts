@@ -151,6 +151,7 @@ export class PipelineStack extends Stack {
       output: sourceOutput,
       owner: 'JonathanGriffiths94',
       repo: 'aws-ci-cd-lambda-docker-test',
+      branch: 'main',
       oauthToken: SecretValue.secretsManager('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'),
     });
 
