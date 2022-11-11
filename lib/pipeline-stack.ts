@@ -152,7 +152,7 @@ export class PipelineStack extends Stack {
       owner: 'JonathanGriffiths94',
       repo: 'aws-ci-cd-lambda-docker-test',
       branch: 'main',
-      oauthToken: SecretValue.secretsManager('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'),
+      oauthToken: SecretValue.secretsManager('personalGithubToken'),
     });
 
     // build action
@@ -169,17 +169,17 @@ export class PipelineStack extends Stack {
     //});
 
 
-  new aws_codepipeline_actions.CodeBuildAction({
-    actionName: 'DoUnitest',
-    project: unittestCodeBuild,
-    input: sourceOutput,
-    outputs: [unitestCodeBuildOutput],
-    environmentVariables: {
-      COMMIT_URL: {
-        value: sourceAction.variables.commitUrl,
+    const unittestBuildAction = new aws_codepipeline_actions.CodeBuildAction({
+      actionName: 'DoUnitest',
+      project: unittestCodeBuild,
+      input: sourceOutput,
+      outputs: [unitestCodeBuildOutput],
+      environmentVariables: {
+        COMMIT_URL: {
+          value: sourceAction.variables.commitUrl,
+        },
       },
-    },
-  });
+    });
 
     // cdk build template
     const cdkBuild = new aws_codepipeline_actions.CodeBuildAction({
