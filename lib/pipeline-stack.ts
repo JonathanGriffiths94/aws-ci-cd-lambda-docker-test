@@ -36,7 +36,7 @@ export class PipelineStack extends Stack {
             },
             build: {
               commands: [
-                "python -m pytest -s -v unittests/test_lambda_logic.py",
+                "python -m pytest -s -v unit_tests/test_lambda_logic.py",
               ],
             },
           },
@@ -83,7 +83,7 @@ export class PipelineStack extends Stack {
               ],
             },
             build: {
-              commands: ["python -m pytest -s -v integtests/test_service.py"],
+              commands: ["python -m pytest -s -v integ_tests/test_service.py"],
             },
           },
           artifacts: {},
