@@ -79,7 +79,7 @@ export class PipelineStack extends Stack {
               commands: [
                 `SERVICE_URL=$(aws cloudformation describe-stacks --stack-name PreProdApplicationStack --query "Stacks[0].Outputs[?OutputKey=='UrlPreProd'].OutputValue" --output text)`,
                 "echo $SERVICE_URL",
-                "pip install -r requirements.txt",
+                "pip install -r src/hello_world/requirements.txt",
               ],
             },
             build: {
@@ -153,6 +153,7 @@ export class PipelineStack extends Stack {
       repo: 'aws-ci-cd-lambda-docker-test',
       branch: 'main',
       oauthToken: SecretValue.secretsManager('personalGithubToken'),
+      trigger: aws_codepipeline_actions.GitHubTrigger.WEBHOOK,
     });
 
     // build action
